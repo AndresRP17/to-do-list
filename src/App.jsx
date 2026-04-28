@@ -66,7 +66,7 @@ useEffect(() => {
 
 return (
   <div style={{ textAlign: 'center', marginTop: '50px'}}>
-    <h1>Mi lista de tareitas</h1>
+    <h1>Mi lista de tareas</h1>
     
     {/* Sección de estadísticas */}
     <div style={{ display: 'flex', justifyContent:'center', marginBottom: '20px', gap:'10px' }}>
