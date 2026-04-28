@@ -80,33 +80,61 @@ return (
           type="text" 
           value={textoInput} 
           onChange={(e) => setTextoInput(e.target.value)}
-          placeholder="Escribí aquí..."
+          onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      agregarTarea();
+    }
+  }}
+          placeholder="Escribí aquí una tarea..."
         />
         <button onClick={agregarTarea}>Agregar</button>
 
-      {/* Botón para borrar todo: Solo aparece si hay tareas */}
+     
       {tareas.length > 0 && (
         <button 
         onClick={limpiarTodo} 
-        style={{backgroundColor: 'red', color: 'white', border: 'none', cursor: 'pointer' }}
+        style={{backgroundColor: 'red', color: 'white', border: 'none', cursor: 'pointer', marginLeft:'380px' }}
         >
           Borrar todas
         </button>
       )}
-      </div>
+{/* Si el largo de tareas es 0, mostramos el H1 */}
+{tareas.length === 0 && (
+  <h3 style={{ color: 'gray', marginTop: '20px' }}>
+    Aún no se ingresaron tareas
+  </h3>
+)}      </div>
 
-      <ul style={{ listStyle: 'none', padding: 0, marginTop: '40px' }}>
+      <ul style={{ listStyle: 'none', padding: '10px', marginTop: '40px'}}>
         {tareas.map((t, index) => (
-          <li key={index} style={{ marginBottom: '10px' }}>
-            <span style={{ 
-              textDecoration: t.completada ? 'line-through' : 'none',
-              marginRight: '10px'
-            }}>
-              {t.texto}
-            </span>
-            <button onClick={() => tacharTarea(index)}>Tachar</button>
-            <button onClick={() => borrarTarea(index)} style={{ marginLeft: '5px' }}>Borrar</button>
-          </li>
+         
+         <li key={index} style={{ 
+  marginBottom: '10px', 
+  padding: '10px', 
+  border: '1px solid black', 
+  borderRadius: '20px',
+  // --- AGREGAMOS ESTO ---
+  display: 'flex', 
+  alignItems: 'center',        // Centra verticalmente texto y botones
+  justifyContent: 'space-between' // Texto a la izquierda, botones a la derecha
+}}>
+  
+  <span style={{ 
+    textDecoration: t.completada ? 'line-through' : 'none',
+    marginRight: '10px',
+    textAlign: 'left',
+    flex: 1 // Esto hace que el texto ocupe todo el espacio sobrante
+  }}>
+    {t.texto}
+  </span>
+
+  {/* Envolvemos los botones en un div para que se mantengan juntos a la derecha */}
+  <div>
+    <button onClick={() => tacharTarea(index)}>Tachar</button>
+    <button onClick={() => borrarTarea(index)} style={{ marginLeft: '25px', color:'white', background:'red' }}>Borrar</button>
+  </div>
+
+</li>
         ))}
       </ul>
     </div>
